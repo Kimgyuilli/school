@@ -6,8 +6,8 @@ class Stack {
 private:
 	T* stack;
 	int top;         
-	int StackSize; //ÇöÀç ½ºÅÃÀÇ Å©±â
-	int StackCapacity; // ÇöÀç ½ºÅÃÀÇ ÃÖ´ë Å©±â
+	int StackSize; //í˜„ì¬ ìŠ¤íƒì˜ í¬ê¸°
+	int StackCapacity; // í˜„ì¬ ìŠ¤íƒì˜ ìµœëŒ€ í¬ê¸°
 public:
 	Stack(){
 		stack = new T[10]; 
@@ -20,14 +20,18 @@ public:
 		delete[] stack;
 	}
 
-	bool isEmpty() { //stackÀÌ ºñ¾ú´ÂÁö Ã¼Å©
-		if (top == -1) return true;
-		else return false;
+	bool isEmpty() { //stackì´ ë¹„ì—ˆëŠ”ì§€ ì²´í¬
+		if (top == -1) 
+			return true;
+		else 
+			return false;
 	}
 
-	bool isFull() { //stackÀÌ °¡µæ Ã¡´ÂÁö Ã¼Å©
-		if (top == StackCapacity - 1) return true;
-		else return false;
+	bool isFull() { //stackì´ ê°€ë“ ì°¼ëŠ”ì§€ ì²´í¬
+		if (top == StackCapacity - 1) 
+			return true;
+		else 
+			return false;
 	}
 
 	int capacity() {
@@ -39,16 +43,17 @@ public:
 	}
 
 	void printStack() {
-		std::cout << "STACK SIZE [" << StackCapacity << "]" << std::endl;
+		std::cout << "STACK ìˆ˜ìš©ëŸ‰ [" << StackCapacity << "]" << std::endl;
+		std::cout << "í˜„ì¬ STACK í¬ê¸° [" << StackSize << "]" << std::endl;
 		std::cout << "STACK [ ";
 		for (int i = 0; i <= top; i++) {
 			std::cout << stack[i] << " ";
 		}
-		std::cout << "]" << std::endl;
+		std::cout << "]\n" << std::endl;
 	}
 
 	void sort() {
-		// Bubble sort
+		// ë²„ë¸”ì •ë ¬
 		for (int i = 0; i < top; i++) {
 			for (int j = 0; j < top - i; j++) {
 				if (stack[j] > stack[j + 1]) {
@@ -62,17 +67,17 @@ public:
 
 	void push(T& value) {
 		if (isFull()) {
-			std::cout << "½ºÅÃ »çÀÌÁî Áõ°¡" << std::endl;
-			// ½ºÅÃÀÌ °¡µæ Â÷ ÀÖÀ¸¸é Å©±â¸¦ ´Ã·ÁÁØ´Ù.
+			std::cout << "ìŠ¤íƒ ì‚¬ì´ì¦ˆ ì¦ê°€" << std::endl;
+			// ìŠ¤íƒì´ ê°€ë“ ì°¨ ìˆìœ¼ë©´ í¬ê¸°ë¥¼ ëŠ˜ë ¤ì¤€ë‹¤.
 			int NewCapacity = StackCapacity + 10;
 			T* NewStack = new T[NewCapacity];
 
-			// ±âÁ¸ ½ºÅÃÀ» »õ·Î¿î ½ºÅÃÀ¸·Î º¹»ç.
+			// ê¸°ì¡´ ìŠ¤íƒì„ ìƒˆë¡œìš´ ìŠ¤íƒìœ¼ë¡œ ë³µì‚¬.
 			for (int i = 0; i <= top; ++i) {
 				NewStack[i] = stack[i];
 			}
 
-			// »õ·Î¿î ½ºÅÃÀ¸·Î ±³Ã¼.
+			// ìƒˆë¡œìš´ ìŠ¤íƒìœ¼ë¡œ êµì²´.
 			delete[] stack;
 			stack = NewStack;
 			StackCapacity = NewCapacity;
@@ -82,30 +87,30 @@ public:
 		StackSize++;
 	}
 
-	void pushAt(int location, T& value) {
+	void pushAt(int location, const T& value) {
 		if (location < 0 || location > top + 1) {
-			std::cerr << "¿Ã¹Ù¸£Áö ¾ÊÀº À§Ä¡ÀÔ´Ï´Ù!" << std::endl;
+			std::cerr << "ì˜¬ë°”ë¥´ì§€ ì•Šì€ ìœ„ì¹˜ì…ë‹ˆë‹¤!" << std::endl;
 			return;
 		}
 
-		// ½ºÅÃÀÌ °¡µæ Â÷ ÀÖÀ¸¸é Å©±â¸¦ ´Ã¸°´Ù.
+		// ìŠ¤íƒì´ ê°€ë“ ì°¨ ìˆìœ¼ë©´ í¬ê¸°ë¥¼ ëŠ˜ë¦°ë‹¤.
 		if (isFull()) {
-			std::cout << "½ºÅÃ »çÀÌÁî Áõ°¡" << std::endl;
+			std::cout << "ìŠ¤íƒ ì‚¬ì´ì¦ˆ ì¦ê°€" << std::endl;
 			int NewCapacity = StackCapacity + 10;
 			T* NewStack = new T[NewCapacity];
 
-			// ±âÁ¸ ½ºÅÃÀ» »õ·Î¿î ½ºÅÃÀ¸·Î º¹»ç.
+			// ê¸°ì¡´ ìŠ¤íƒì„ ìƒˆë¡œìš´ ìŠ¤íƒìœ¼ë¡œ ë³µì‚¬.
 			for (int i = 0; i <= top; ++i) {
 				NewStack[i] = stack[i];
 			}
 
-			// »õ·Î¿î ½ºÅÃÀ¸·Î ±³Ã¼ÇÑ´Ù.
+			// ìƒˆë¡œìš´ ìŠ¤íƒìœ¼ë¡œ êµì²´í•œë‹¤.
 			delete[] stack;
 			stack = NewStack;
 			StackCapacity = NewCapacity;
 		}
 
-		// ¿ä¼Ò¸¦ Ãß°¡ÇÒ À§Ä¡ ÀÌÈÄÀÇ ¿ä¼ÒµéÀ» ÇÑ Ä­¾¿ µÚ·Î ÀÌµ¿.
+		// ìš”ì†Œë¥¼ ì¶”ê°€í•  ìœ„ì¹˜ ì´í›„ì˜ ìš”ì†Œë“¤ì„ í•œ ì¹¸ì”© ë’¤ë¡œ ì´ë™.
 		for (int i = top; i >= location; --i) {
 			stack[i + 1] = stack[i];
 		}
@@ -116,19 +121,19 @@ public:
 
 	T pop() {
 		if (isEmpty()) {
-			std::cerr << "½ºÅÃÀÌ ºñ¾îÀÖ½À´Ï´Ù!" << std::endl;
+			std::cerr << "ìŠ¤íƒì´ ë¹„ì–´ìˆìŠµë‹ˆë‹¤!" << std::endl;
 			return T();
 		}
 
 		T value = stack[top--];
 		StackSize--;
-		if (size() % StackCapacity == 0)
+		if (size() % 10 == 0)
 		{
-			std::cout << "½ºÅÃ »çÀÌÁî °¨¼Ò" << std::endl;
-			// ½ºÅÃ »çÀÌÁî °¨¼Ò
+			std::cout << "ìŠ¤íƒ ì‚¬ì´ì¦ˆ ê°ì†Œ" << std::endl;
+			// ìŠ¤íƒ ì‚¬ì´ì¦ˆ ê°ì†Œ
 			int NewCapacity = StackCapacity - 10;
 			T* NewStack = new T[NewCapacity];
-			// ±âÁ¸ ½ºÅÃÀ» »õ·Î¿î ½ºÅÃÀ¸·Î º¹»ç.
+			// ê¸°ì¡´ ìŠ¤íƒì„ ìƒˆë¡œìš´ ìŠ¤íƒìœ¼ë¡œ ë³µì‚¬.
 			for (int i = 0; i <= top; ++i) {
 				NewStack[i] = stack[i];
 			}
@@ -141,7 +146,7 @@ public:
 
 	T popAt(int location) {
 		if (isEmpty() || location < 0 || location > top) {
-			std::cerr << "popÀÌ ºÒ°¡´ÉÇÕ´Ï´Ù!" << std::endl;
+			std::cerr << "popì´ ë¶ˆê°€ëŠ¥í•©ë‹ˆë‹¤!" << std::endl;
 			return T();
 		}
 
@@ -151,13 +156,13 @@ public:
 		}
 		top--;
 		StackSize--;
-		if (size() % StackCapacity == 0)
+		if (size() % 10 == 0)
 		{
-			std::cout << "½ºÅÃ »çÀÌÁî °¨¼Ò" << std::endl;
-			// ½ºÅÃ »çÀÌÁî °¨¼Ò
+			std::cout << "ìŠ¤íƒ ì‚¬ì´ì¦ˆ ê°ì†Œ" << std::endl;
+			// ìŠ¤íƒ ì‚¬ì´ì¦ˆ ê°ì†Œ
 			int NewCapacity = StackCapacity - 10;
 			T* NewStack = new T[NewCapacity];
-			// ±âÁ¸ ½ºÅÃÀ» »õ·Î¿î ½ºÅÃÀ¸·Î º¹»ç.
+			// ê¸°ì¡´ ìŠ¤íƒì„ ìƒˆë¡œìš´ ìŠ¤íƒìœ¼ë¡œ ë³µì‚¬.
 			for (int i = 0; i <= top; ++i) {
 				NewStack[i] = stack[i];
 			}
@@ -168,31 +173,169 @@ public:
 		return value;
 	}
 
+	void push_range(T values[], int arrSize) { //í•œë²ˆì— ì—¬ëŸ¬ ìš”ì†Œ ì‚½ì…
+			// ìŠ¤íƒì´ ê°€ë“ ì°¨ ìˆê±°ë‚˜ ë°°ì—´ì„ ë„£ì—ˆì„ ë•Œ ìŠ¤íƒì˜ í¬ê¸°ê°€ ì´ˆê³¼ë˜ë©´
+			if (isFull() || StackSize + arrSize > StackCapacity) {
+				std::cout << "ìŠ¤íƒ ì‚¬ì´ì¦ˆ ì¦ê°€" << std::endl;
+				// ìŠ¤íƒì´ ê°€ë“ ì°¨ ìˆìœ¼ë©´ í¬ê¸°ë¥¼ ëŠ˜ë ¤ì¤€ë‹¤.
+				int NewCapacity = (((StackSize + arrSize)/10) * 10) + 10;
+				T* NewStack = new T[NewCapacity];
+				// ê¸°ì¡´ ìŠ¤íƒì„ ìƒˆë¡œìš´ ìŠ¤íƒìœ¼ë¡œ ë³µì‚¬.
+				for (int i = 0; i <= top; ++i) {
+					NewStack[i] = stack[i];
+				}
+				// ìƒˆë¡œìš´ ìŠ¤íƒìœ¼ë¡œ êµì²´.
+				delete[] stack;
+				stack = NewStack;
+				StackCapacity = NewCapacity;
+			}
+			for(int i = 0; i < arrSize; i++){
+				stack[++top] = values[i];
+			}
+			StackSize += arrSize;
+	}
 
+	void push_rangeAt(int location, T values[], int arrSize) {
+		if (location < 0 || location > top + 1) {
+			std::cerr << "ì˜¬ë°”ë¥´ì§€ ì•Šì€ ìœ„ì¹˜ì…ë‹ˆë‹¤!" << std::endl;
+			return;
+		}
+		// ìŠ¤íƒì´ ê°€ë“ ì°¨ ìˆê±°ë‚˜ ë°°ì—´ì„ ë„£ì—ˆì„ ë•Œ ìŠ¤íƒì˜ í¬ê¸°ê°€ ì´ˆê³¼ë˜ë©´
+		if (isFull() || StackSize + arrSize > StackCapacity) {
+			std::cout << "ìŠ¤íƒ ì‚¬ì´ì¦ˆ ì¦ê°€" << std::endl;
+			// ìŠ¤íƒì´ ê°€ë“ ì°¨ ìˆìœ¼ë©´ í¬ê¸°ë¥¼ ëŠ˜ë ¤ì¤€ë‹¤.
+			int NewCapacity = (((StackSize + arrSize) / 10) * 10) + 10;
+			T* NewStack = new T[NewCapacity];
+			// ê¸°ì¡´ ìŠ¤íƒì„ ìƒˆë¡œìš´ ìŠ¤íƒìœ¼ë¡œ ë³µì‚¬.
+			for (int i = 0; i <= top; ++i) {
+				NewStack[i] = stack[i];
+			}
+			// ìƒˆë¡œìš´ ìŠ¤íƒìœ¼ë¡œ êµì²´.
+			delete[] stack;
+			stack = NewStack;
+			StackCapacity = NewCapacity;
+		}
 
-	// ½ºÅÃÀÇ ¿ø¼Ò¸¦ Ãâ·ÂÇÏ´Â ¿¬»ê
+		// ìš”ì†Œë¥¼ ì¶”ê°€í•  ìœ„ì¹˜ ì´í›„ì˜ ìš”ì†Œë“¤ì„ í•œ ì¹¸ì”© ë’¤ë¡œ ì´ë™.
+		for (int i = top; i >= location; --i) {
+			stack[i + arrSize] = stack[i];
+		}
+		for (int i = 0; i < arrSize; i++) {
+			stack[location + i] = values[i];
+		}
+		top += arrSize;
+		StackSize += arrSize;
+	}
 };
 
 int main() {
-	Stack<int> intStack;
-	Stack<double> doubleStack;
+	Stack<int> iStack;
+	Stack<double> dStack;
+	bool plag = 0;
 
-	// int ½ºÅÃ¿¡ µ¥ÀÌÅÍ Ãß°¡
-	for (int i = 0; i < 5; ++i) {
-		intStack.push(i);
+
+	if (plag) {
+		// int ìŠ¤íƒì— ë°ì´í„° ì¶”ê°€
+		std::cout << "iStack ì‹¤í–‰" << std::endl;
+		std::cout << "pushì‹¤í–‰ 0~15" << std::endl;
+		for (int i = 0; i < 15; ++i) {
+			iStack.push(i);
+		}
+		iStack.printStack();
+
+		std::cout << "popì‹¤í–‰ 5íšŒ" << std::endl;
+		for (int i = 0; i < 5; ++i) {
+			iStack.pop();
+		}
+		iStack.printStack();
+
+		std::cout << "pushAtì‹¤í–‰ index : 3, value: 11" << std::endl;
+		iStack.pushAt(3, 11);
+		iStack.printStack();
+
+		std::cout << "popAtì‹¤í–‰ index : 5" << std::endl;
+		iStack.popAt(5);
+		iStack.printStack();
+
+		int a[21] = { 6, 3, 8, 3, 2, 4, 5, 6, 7, 3, 11, 3, 7, 14, 12, 71, 45, 61, 43, 23, 12 };
+
+		std::cout << "push_range ì‹¤í–‰ value : [ ";
+		for (int i = 0; i < 21; i++) {
+			std::cout << a[i] << " ";
+		}
+		std::cout << "]" << std::endl;
+		iStack.push_range(a, 21);
+		iStack.printStack();
+
+		std::cout << "push_rangeAt ì‹¤í–‰ index : 3, value : [ ";
+		for (int i = 0; i < 21; i++) {
+			std::cout << a[i] << " ";
+		}
+		std::cout << "]" << std::endl;
+		iStack.push_rangeAt(3, a, 21);
+		iStack.printStack();
+
+		std::cout << "cpapcity() ì‹¤í–‰" << std::endl;
+		std::cout << iStack.capacity() << std::endl;
+
+		std::cout << "\nsize() ì‹¤í–‰" << std::endl;
+		std::cout << iStack.size() << std::endl;
+
+		std::cout << "\nsort() ì‹¤í–‰" << std::endl;
+		iStack.sort();
+		iStack.printStack();
+	}
+	else {
+		//double ìŠ¤í…ì— ë°ì´í„° ì¶”ê°€
+		std::cout << "dStackì‹¤í–‰" << std::endl;
+		std::cout << "pushì‹¤í–‰ 0~15" << std::endl;
+		for (double i = 0.1; i < 15; ++i) {
+			dStack.push(i);
+		}
+		dStack.printStack();
+
+		std::cout << "popì‹¤í–‰ 5íšŒ" << std::endl;
+		for (int i = 0; i < 5; ++i) {
+			dStack.pop();
+		}
+		dStack.printStack();
+
+		std::cout << "pushAtì‹¤í–‰ index : 3, value: 11" << std::endl;
+		dStack.pushAt(3, 11.0);
+		dStack.printStack();
+
+		std::cout << "popAtì‹¤í–‰ index : 5" << std::endl;
+		dStack.popAt(5);
+		dStack.printStack();
+
+		double a[21] = { 6.1, 3.2, 8.3, 3.1, 2.2, 4.3, 5.1, 6.2, 7.3, 3.1, 11.3, 3.2, 7.1, 14.3, 12.4, 71.2, 45.2, 61.5, 43.1, 23.3, 12.2 };
+
+		std::cout << "push_range ì‹¤í–‰ value : [ ";
+		for (int i = 0; i < 21; i++) {
+			std::cout << a[i] << " ";
+		}
+		std::cout << "]" << std::endl;
+		dStack.push_range(a, 21);
+		dStack.printStack();
+
+		std::cout << "push_rangeAt ì‹¤í–‰ index : 3, value : [ ";
+		for (int i = 0; i < 21; i++) {
+			std::cout << a[i] << " ";
+		}
+		std::cout << "]" << std::endl;
+		dStack.push_rangeAt(3, a, 21);
+		dStack.printStack();
+
+		std::cout << "cpapcity() ì‹¤í–‰" << std::endl;
+		std::cout << dStack.capacity() << std::endl;
+
+		std::cout << "\nsize() ì‹¤í–‰" << std::endl;
+		std::cout << dStack.size() << std::endl;
+
+		std::cout << "\nsort() ì‹¤í–‰" << std::endl;
+		dStack.sort();
+		dStack.printStack();
 	}
 
-	// double ½ºÅÃ¿¡ µ¥ÀÌÅÍ Ãß°¡
-	for (double i = 0.1; i < 0.6; i += 0.1) {
-		doubleStack.push(i);
-	}
-
-	// int ½ºÅÃ Ãâ·Â
-	intStack.printStack();
-
-	// double ½ºÅÃ Ãâ·Â
-	doubleStack.printStack();
-
-	return 0;
 	return 0;
 }
