@@ -1,2 +1,1 @@
-# school
-school
+학교에서 한 것들
